@@ -97,6 +97,8 @@ class Users extends BaseController
 		echo view('templates/header', $data);
 		echo view('register');
 		echo view('templates/footer');
+		echo view('templates/popup');
+
 	}
 	
 	public function profile(){
