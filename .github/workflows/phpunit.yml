@@ -1,0 +1,37 @@
+name: Run PHPUnit Tests
+
+on:
+  push:
+    branches:
+      - main   # Run the tests on push to the main branch
+  pull_request:
+    branches:
+      - main   # Run the tests on pull requests to the main branch
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['7.4', '8.0', '8.3']  # Test against multiple PHP versions
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: mbstring, pdo, pdo_mysql, curl  # Add any required PHP extensions
+
+    - name: Install Composer dependencies
+      run: composer install --no-progress --no-suggest --prefer-dist
+
+    - name: Run PHPUnit tests
+      run: vendor/bin/phpunit 
+      
+#--configuration phpunit.xml  # Adjust the path to your phpunit.xml if needed
+#PHPUNIT_PATH=k:\data\CodeIgniter-4.4.5-Shared\vendor\bin\phpunit --no-coverage
