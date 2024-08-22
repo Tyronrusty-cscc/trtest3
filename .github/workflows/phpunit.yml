@@ -32,6 +32,8 @@ jobs:
         
         extensions: mbstring, pdo, pdo_mysql, curl  # Add any required PHP extensions
 
+    - name: Install Composer dependencies
+      run: composer install --no-progress --no-suggest --prefer-dist
 
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --configuration phpunit.xml  # Adjust the path to your phpunit.xml if needed
